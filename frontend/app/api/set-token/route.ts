@@ -8,14 +8,14 @@ export async function POST(req: Request) {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'strict',
-    maxAge: 10 * 1, // 5 minutes
+    maxAge: 60 * 5,
   });
 
   cookieStore.set('refresh_token', refresh, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'strict',
-    maxAge: 60 * 60 * 24 * 7, // 7 jours
+    maxAge: 60 * 60 * 24 * 7,
   });
 
   return Response.json({ ok: true });
