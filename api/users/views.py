@@ -23,8 +23,6 @@ class LoginStep1View(APIView):
         if user is not None:
        
             otp_code = "".join([secrets.choice("0123456789") for _ in range(6)])
-            
-
             cache.set(f"otp_{user.id}", otp_code, timeout=300)
             
             envoi_ok = send_2fa_email(user.email, otp_code)

@@ -26,4 +26,5 @@ urlpatterns = [
     path('api/auth/registration/', include('dj_rest_auth.registration.urls')),
     
     path('api/auth/social/google/', GoogleLoginView.as_view()),
+    path('/api/matches/',ApiFootDataMatch.as_view()),
 ]
