@@ -17,26 +17,22 @@ export default function RegisterPage() {
 
     try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/registration/`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password1, password2 }),
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password1, password2 }),
         });
 
         const data = await response.json();
 
         if (!response.ok) {
-        setError(data);
-        return;
+            setError(data);
+            return;
         }
-
-        await fetch('/api/set-token', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token: data.key }),
-        });
-
         setSuccess(true);
-        router.push('/dashboard');
+        
+        setTimeout(() => {
+            router.push('/login');
+        }, 4000);
 
     } catch (err) {
         setError({ detail: "Impossible de joindre le serveur Django." });
@@ -47,21 +43,21 @@ export default function RegisterPage() {
     <div className="max-w-md mx-auto mt-16 p-6">
       <h2 className="text-2xl font-bold mb-6 text-foreground">Créer un compte</h2>
 
-      {/* Message de succès */}
       {success && (
-        <div className="p-4 mb-6 rounded-md bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400 border border-green-200 dark:border-green-800">
-          Inscription réussie ! Vous êtes maintenant connecté.
+        <div className="p-4 mb-6 rounded-md bg-green-100 text-green-800 border border-green-200 text-center">
+          <p className="font-bold">Compte créé avec succès !</p>
+          <p className="text-sm">Redirection vers la page de connexion...</p>
         </div>
       )}
 
-      {/* Affichage des erreurs */}
+      {}
       {error && (
         <div className="p-4 mb-6 rounded-md bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400 border border-red-200 dark:border-red-800 overflow-x-auto">
           <pre className="text-sm whitespace-pre-wrap">{JSON.stringify(error, null, 2)}</pre>
         </div>
       )}
 
-      {/* Le formulaire */}
+      {}
       {!success && (
         <form onSubmit={handleSubmit} className="flex flex-col gap-5">
           <div>
